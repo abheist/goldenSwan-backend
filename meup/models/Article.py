@@ -7,7 +7,7 @@ from django.db import models
 class Article(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4(), blank=False, unique=True)
     slug = models.SlugField(max_length=120)
-    title = models.CharField(blank=False, null=False)
+    title = models.CharField(blank=False, null=False, max_length=255)
     author = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
     content = models.TextField()
 
