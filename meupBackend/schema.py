@@ -1,6 +1,7 @@
 import graphene
 from graphql_auth import mutations
 
+import meup.schema
 import users.schema
 
 
@@ -21,11 +22,11 @@ class AuthMutation(graphene.ObjectType):
     revoke_token = mutations.RevokeToken.Field()
 
 
-class Query(users.schema.Query, graphene.ObjectType):
+class Query(users.schema.Query, meup.schema.Query, graphene.ObjectType):
     pass
 
 
-class Mutation(AuthMutation, graphene.ObjectType):
+class Mutation(AuthMutation, meup.schema.Mutation, graphene.ObjectType):
     pass
 
 
