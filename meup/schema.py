@@ -48,14 +48,15 @@ class UpdateArticleMutation(graphene.Mutation):
         title = graphene.String()
         content = graphene.String()
 
+    @classmethod
     @login_required
-    def mutate(self, info, title, content, id):
-        article = Article.objects.get(id=id)
+    def mutate(cls, root, info, title, content, id):
+        article = Article.objects.get(pk=id)
         if article.author == info.context.user:
-            article.content = content
             article.title = title
+            article.content = content
             article.save()
-            return UpdateArticleMutation(ArticleType)
+            return UpdateArticleMutation(article)
         else:
             raise Exception
 
