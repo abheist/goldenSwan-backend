@@ -44,7 +44,7 @@ class UpdateArticleMutation(graphene.Mutation):
     article = graphene.Field(ArticleType)
 
     class Arguments:
-        id = graphene.String(required=True)
+        id = graphene.ID(required=True)
         title = graphene.String()
         content = graphene.String()
 
