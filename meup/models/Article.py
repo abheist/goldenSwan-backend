@@ -1,9 +1,11 @@
+import uuid
+
 from django.contrib.auth import get_user_model
 from django.db import models
 
 
 class Article(models.Model):
-    slug = models.SlugField(max_length=120)
+    slug = models.SlugField(max_length=120, blank=False, null=False, unique=True, default=uuid.uuid4, editable=False)
     title = models.CharField(blank=False, null=False, max_length=255)
     author = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
     content = models.TextField()
