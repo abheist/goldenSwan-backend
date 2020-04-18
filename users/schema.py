@@ -7,6 +7,7 @@ from graphql_jwt.decorators import login_required
 class UserType(DjangoObjectType):
     class Meta:
         model = get_user_model()
+        exclude = ('password', 'email')
 
 
 class Query(object):
