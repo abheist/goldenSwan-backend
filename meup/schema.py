@@ -27,13 +27,14 @@ class CreateArticleMutation(graphene.Mutation):
 
     class Arguments:
         title = graphene.String()
+        subtitle = graphene.String()
         content = graphene.String()
 
     @classmethod
     @login_required
-    def mutate(cls, root, info, title, content):
+    def mutate(cls, root, info, title, subtitle, content):
         if info.context.user:
-            article = Article(title=title, content=content, author=info.context.user)
+            article = Article(title=title, subtitle=subtitle, content=content, author=info.context.user)
             article.save()
             return CreateArticleMutation(article=article)
         else:
@@ -46,15 +47,17 @@ class UpdateArticleMutation(graphene.Mutation):
     class Arguments:
         slug = graphene.String(required=True)
         title = graphene.String()
+        subtitle = graphene.String()
         content = graphene.String()
 
     @classmethod
     @login_required
-    def mutate(cls, root, info, slug, title, content):
+    def mutate(cls, root, info, slug, title, subtitle, content):
         try:
             article = Article.objects.get(slug=slug)
             if article.author == info.context.user:
                 article.title = title
+                article.subtitle = subtitle
                 article.content = content
 
                 article.save()
