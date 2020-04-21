@@ -12,6 +12,12 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
 ALLOWED_HOSTS = []
 SITE_ID = 1
 
@@ -31,6 +37,9 @@ INSTALLED_APPS = [
     'meup',
     'users',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    'celery',
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -90,6 +99,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 AUTHENTICATION_BACKENDS = [
     'graphql_jwt.backends.JSONWebTokenBackend',
