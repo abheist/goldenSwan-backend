@@ -338,3 +338,5 @@ dmypy.json
 pyvenv.cfg
 .venv
 pip-selfcheck.json
+/static/
+/media/
