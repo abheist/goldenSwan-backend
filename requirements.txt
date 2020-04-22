@@ -20,6 +20,7 @@ flower==0.9.4
 future==0.18.2
 graphene==2.1.8
 graphene-django==2.9.0
+graphene-file-upload==1.2.2
 graphql-core==2.3.1
 graphql-relay==2.0.1
 humanize==0.5.1
@@ -32,6 +33,7 @@ nodeenv==1.3.5
 parso==0.6.2
 pexpect==4.8.0
 pickleshare==0.7.5
+Pillow==7.1.1
 promise==2.3
 prompt-toolkit==3.0.5
 ptyprocess==0.6.0
