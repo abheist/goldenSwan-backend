@@ -26,7 +26,7 @@ class Query(users.schema.Query, meup.schema.Query, graphene.ObjectType):
     pass
 
 
-class Mutation(AuthMutation, meup.schema.Mutation, graphene.ObjectType):
+class Mutation(AuthMutation, users.schema.Mutation, meup.schema.Mutation, graphene.ObjectType):
     pass
 
 
