@@ -12,14 +12,14 @@ class ArticleType(DjangoObjectType):
 
 class Query(object):
     articles = graphene.List(ArticleType)
-    article = graphene.Field(ArticleType, id=graphene.String())
+    article = graphene.Field(ArticleType, slug=graphene.String())
 
     def resolve_articles(self, info, **kwargs):
         return Article.objects.all()
 
     def resolve_article(self, info, **kwargs):
-        id = kwargs.get('id')
-        return Article.objects.get(id=id)
+        slug = kwargs.get('slug')
+        return Article.objects.get(slug=slug)
 
 
 class CreateArticleMutation(graphene.Mutation):
