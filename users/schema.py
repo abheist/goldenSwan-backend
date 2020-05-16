@@ -1,28 +1,25 @@
 import graphene
 from django.contrib.auth import get_user_model
 from graphene_django.types import DjangoObjectType
-from graphene_file_upload.scalars import Upload
 from graphql_jwt.decorators import login_required
 
 
 class UserType(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        exclude = ('password', 'email')
+        exclude = ('password',)
 
 
 class Query(object):
     users = graphene.List(UserType)
-    user = graphene.Field(UserType, user_id=graphene.ID())
+    user = graphene.Field(UserType, username=graphene.String())
     me = graphene.Field(UserType)
 
-    @login_required
     def resolve_users(self, info, **kwargs):
         return get_user_model().objects.all()
 
-    @login_required
-    def resolve_user(self, info, user_id, **kwargs):
-        return get_user_model().objects.get(pk=user_id)
+    def resolve_user(self, info, username, **kwargs):
+        return get_user_model().objects.get(username=username)
 
     @login_required
     def resolve_me(self, info, **kwargs):
@@ -35,23 +32,34 @@ class UpdateUserMutation(graphene.Mutation):
 
     class Arguments:
         pk = graphene.ID(required=True)
-        # username = graphene.String(required=False)
         first_name = graphene.String(required=False)
-        # last_name = graphene.String(required=False)
-        # email = graphene.String(required=False)
-        # dob = graphene.String(required=False)
-        # bio = graphene.String(required=False)
-        profile_pic = Upload()
+        last_name = graphene.String(required=False)
+        username = graphene.String(required=False)
+        email = graphene.String(required=False)
+        dob = graphene.String(required=False)
+        bio = graphene.String(required=False)
+        profile_pic = graphene.String(required=False)
+        facebook = graphene.String(required=False)
+        twitter = graphene.String(required=False)
+        instagram = graphene.String(required=False)
+        linkedin = graphene.String(required=False)
 
     @classmethod
     @login_required
-    def mutate(cls, root, info, pk, first_name, profile_pic):
+    def mutate(cls, root, info, **kwargs):
         try:
-            user = get_user_model().objects.get(pk=pk)
-            if user.username == info.context.user.username:
-                # todo: change user models fields
-                user.first_name = first_name
-                user.profile_pic = profile_pic
+            user = get_user_model().objects.get(pk=kwargs['pk'])
+            if user == info.context.user:
+                user.first_name = kwargs['first_name']
+                user.last_name = kwargs['last_name']
+                user.username = kwargs['username']
+                user.email = kwargs['email']
+                user.bio = kwargs['bio']
+                user.profile_pic = kwargs['profile_pic']
+                user.facebook = kwargs['facebook']
+                user.instagram = kwargs['instagram']
+                user.twitter = kwargs['twitter']
+                user.linkedin = kwargs['linkedin']
                 user.save()
                 return UpdateUserMutation(user=user)
             else:
@@ -62,3 +70,4 @@ class UpdateUserMutation(graphene.Mutation):
 
 class Mutation(graphene.ObjectType):
     update_user = UpdateUserMutation.Field()
+    pass
