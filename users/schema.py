@@ -70,4 +70,3 @@ class UpdateUserMutation(graphene.Mutation):
 
 class Mutation(graphene.ObjectType):
     update_user = UpdateUserMutation.Field()
-    pass
