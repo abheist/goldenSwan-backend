@@ -1,5 +1,6 @@
 import os
 
+import cloudinary
 from dotenv import load_dotenv
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'django_extensions',
     'graphql_auth',
+    'rest_framework',
     'django_filters',
     'meup',
     'users',
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'celery',
     'django_celery_results',
     'django_celery_beat',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -147,3 +150,10 @@ EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
+cloudinary.config(
+        cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+        api_key=os.getenv('CLOUDINARY_API_KEY'),
+        api_secret=os.getenv('CLOUDINARY_API_SECRET'),
+        secure=True
+)
