@@ -5,6 +5,7 @@ asgiref==3.2.7
 backcall==0.1.0
 billiard==3.6.3.0
 celery==4.4.2
+cloudinary==1.20.0
 decorator==4.4.2
 Django==3.0.5
 django-celery-beat==2.0.0
@@ -14,6 +15,7 @@ django-extensions==2.2.9
 django-filter==2.2.0
 django-graphql-auth==0.3.7
 django-graphql-jwt==0.3.1
+djangorestframework==3.11.0
 django-sendgrid-v5==0.8.1
 django-timezone-field==4.0
 flower==0.9.4
