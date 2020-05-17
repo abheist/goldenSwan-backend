@@ -1,3 +1,5 @@
+import json
+
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
@@ -13,7 +15,7 @@ class UploadProfilePicView(APIView):
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             result = cloudinary.uploader.upload(request.FILES['profile_pic'])
-            request.user.profile_pic = result
+            request.user.profile_pic = json.dumps(result)
             request.user.save()
             return Response({'pic_url': result.get('secure_url')}, status=status.HTTP_200_OK)
         else:
