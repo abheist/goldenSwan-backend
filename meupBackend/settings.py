@@ -131,6 +131,12 @@ GRAPHENE = {
     ],
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'meupBackend.CommonJSONWebTokenBackend.CommonJSONWenTokenBackend'
+    ]
+}
+
 GRAPHQL_JWT = {
     "JWT_VERIFY_EXPIRATION": True,
     "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
