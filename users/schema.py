@@ -1,3 +1,5 @@
+import json
+
 import graphene
 from django.contrib.auth import get_user_model
 from graphene_django.types import DjangoObjectType
@@ -19,7 +21,15 @@ class Query(object):
         return get_user_model().objects.all()
 
     def resolve_user(self, info, username, **kwargs):
-        return get_user_model().objects.get(username=username)
+        try:
+            user = get_user_model().objects.get(username=username)
+            profile_pic = json.loads(user.profile_pic)
+            public_id = profile_pic.get('public_id')
+            user.profile_pic = public_id
+            return user
+        except Exception as e:
+            print(e)
+            return None
 
     @login_required
     def resolve_me(self, info, **kwargs):
@@ -38,7 +48,6 @@ class UpdateUserMutation(graphene.Mutation):
         email = graphene.String(required=False)
         dob = graphene.String(required=False)
         bio = graphene.String(required=False)
-        profile_pic = graphene.String(required=False)
         facebook = graphene.String(required=False)
         twitter = graphene.String(required=False)
         instagram = graphene.String(required=False)
@@ -55,7 +64,6 @@ class UpdateUserMutation(graphene.Mutation):
                 user.username = kwargs['username']
                 user.email = kwargs['email']
                 user.bio = kwargs['bio']
-                user.profile_pic = kwargs['profile_pic']
                 user.facebook = kwargs['facebook']
                 user.instagram = kwargs['instagram']
                 user.twitter = kwargs['twitter']
