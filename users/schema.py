@@ -5,11 +5,22 @@ from django.contrib.auth import get_user_model
 from graphene_django.types import DjangoObjectType
 from graphql_jwt.decorators import login_required
 
+from meup.models import Article
+from meup.schema import ArticleType
+
 
 class UserType(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        exclude = ('password',)
+        exclude = ('password', 'article_set')
+
+    articles = graphene.List(ArticleType)
+
+    def resolve_articles(self, info):
+        if info.context.user.is_anonymous or self != info.context.user:
+            return Article.objects.filter(author=self, published=True)
+        if self == info.context.user:
+            return Article.objects.filter(author=self)
 
 
 class Query(object):
@@ -23,9 +34,10 @@ class Query(object):
     def resolve_user(self, info, username, **kwargs):
         try:
             user = get_user_model().objects.get(username=username)
-            profile_pic = json.loads(user.profile_pic)
-            public_id = profile_pic.get('public_id')
-            user.profile_pic = public_id
+            if user.profile_pic:
+                profile_pic = json.loads(user.profile_pic)
+                public_id = profile_pic.get('public_id')
+                user.profile_pic = public_id
             return user
         except Exception as e:
             print(e)
