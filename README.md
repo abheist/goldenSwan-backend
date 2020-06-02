@@ -44,3 +44,14 @@ Up untill now, everything might be working well, but have you tried registering 
 - Click on `sites`, as a default there will be `example.com`, replace that with your Front-end URL `localhost:3000` and with your project Name
 
 Now you ready to rock-on 🤘
+
+## Contributing
+
+Development of GoldenSwan happens in the open on GitHub, Read below to learn how you can take part in improving GoldenSwan.
+
+-   [Code of Conduct](./CODE_OF_CONDUCT.md)
+-   [Contributing Guide](./CONTRIBUTING.md)
+
+### License
+
+GoldenSwan is [MIT licensed](./LICENSE).
