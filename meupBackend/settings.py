@@ -20,7 +20,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 ALLOWED_HOSTS = [
-    "https://meup.netlify.app/",
+    "https://meup.netlify.app",
 ]
 SITE_ID = 1
 SECURE_HSTS_SECONDS = 518400
@@ -71,7 +71,7 @@ ROOT_URLCONF = 'meupBackend.urls'
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://meup.netlify.app/",
+    "https://meup.netlify.app",
 ]
 
 TEMPLATES = [
