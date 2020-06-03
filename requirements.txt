@@ -26,6 +26,7 @@ graphene-django==2.9.0
 graphene-file-upload==1.2.2
 graphql-core==2.3.1
 graphql-relay==2.0.1
+gunicorn==20.0.4
 humanize==0.5.1
 importlib-metadata==1.6.0
 ipython==7.13.0

@@ -1,6 +1,7 @@
 import os
 
 import cloudinary
+import django_heroku
 from dotenv import load_dotenv
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -173,3 +174,6 @@ cloudinary.config(
         api_secret=os.getenv('CLOUDINARY_API_SECRET'),
         secure=True
 )
+
+django_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
