@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn meup.wsgi --log-file -
+web: gunicorn meupBackend.asgi --log-file -
