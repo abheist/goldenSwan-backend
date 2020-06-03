@@ -8,6 +8,7 @@ celery==4.4.2
 certifi==2020.4.5.1
 cloudinary==1.20.0
 decorator==4.4.2
+dj-database-url==0.5.0
 Django==3.0.5
 django-celery-beat==2.0.0
 django-celery-results==1.2.1
