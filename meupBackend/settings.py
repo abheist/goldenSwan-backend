@@ -94,7 +94,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'meupBackend.wsgi.application'
 
-DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
+DATABASES = {'default': dj_database_url.config(default=os.getenv('DATABASE_URL', default=None), conn_max_age=600)}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
