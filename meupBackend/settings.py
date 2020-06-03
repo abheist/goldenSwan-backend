@@ -10,8 +10,8 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-
-DEBUG = True
+ENVIRONMENT = os.getenv("ENVIRONMENT", default="LOCAL")
+DEBUG = os.getenv("DEBUG", default=False)
 
 BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
@@ -19,8 +19,17 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "https://meup.netlify.app/",
+]
 SITE_ID = 1
+SECURE_HSTS_SECONDS = 518400
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_PRELOAD = True
+SECURE_REFERRER_POLICY = 'no-referrer'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
