@@ -20,7 +20,8 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 ALLOWED_HOSTS = [
-    "https://meup.netlify.app",
+    "meup.netlify.app",
+    "me-up.herokuapp.com",
 ]
 SITE_ID = 1
 SECURE_HSTS_SECONDS = 518400
