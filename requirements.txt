@@ -42,6 +42,7 @@ Pillow==7.1.1
 pip==20.1.1
 promise==2.3
 prompt-toolkit==3.0.5
+psycopg2-binary==2.8.5
 ptyprocess==0.6.0
 pydot==1.4.1
 Pygments==2.6.1
