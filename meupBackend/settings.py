@@ -11,8 +11,9 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-ENVIRONMENT = os.getenv("ENVIRONMENT", default="LOCAL")
-DEBUG = os.getenv("DEBUG", default=False)
+ENVIRONMENT = os.getenv("ENVIRONMENT", default="PROD")
+
+DEBUG = True if ENVIRONMENT == 'LOCAL' else False
 
 BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
@@ -20,19 +21,20 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-ALLOWED_HOSTS = [
-    "meup.netlify.app",
-    "me-up.herokuapp.com",
-]
-SITE_ID = 1
-SECURE_HSTS_SECONDS = 518400
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_HSTS_PRELOAD = True
-SECURE_REFERRER_POLICY = 'no-referrer'
-DISABLE_COLLECTSTATIC = 1
+ALLOWED_HOSTS = []
+
+if ENVIRONMENT != 'LOCAL':
+    ALLOWED_HOSTS.extend(["meup.netlify.app", "me-up.herokuapp.com", ])
+
+    SECURE_HSTS_SECONDS = 518400
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_REFERRER_POLICY = 'no-referrer'
+    DISABLE_COLLECTSTATIC = 1
+    SITE_ID = 1
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -94,7 +96,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'meupBackend.wsgi.application'
 
-DATABASES = {'default': dj_database_url.config(default=os.getenv('DATABASE_URL', default=None), conn_max_age=600)}
+if ENVIRONMENT == 'LOCAL':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+else:
+    DATABASES = {'default': dj_database_url.config(default=os.getenv('DATABASE_URL', default=None), conn_max_age=600)}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
