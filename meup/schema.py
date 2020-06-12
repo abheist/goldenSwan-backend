@@ -49,16 +49,18 @@ class UpdateArticleMutation(graphene.Mutation):
         title = graphene.String()
         subtitle = graphene.String()
         content = graphene.String()
+        published = graphene.Boolean(required=False)
 
     @classmethod
     @login_required
-    def mutate(cls, root, info, slug, title, subtitle, content):
+    def mutate(cls, root, info, slug, title, subtitle, content, published):
         try:
             article = Article.objects.get(slug=slug)
             if article.author == info.context.user:
                 article.title = title
                 article.subtitle = subtitle
                 article.content = content
+                article.published = published
 
                 article.save()
                 return UpdateArticleMutation(article=article)
