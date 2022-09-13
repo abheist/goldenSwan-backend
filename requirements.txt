@@ -20,7 +20,7 @@ django-graphql-jwt==0.3.1
 django-sendgrid-v5==0.8.1
 django-timezone-field==4.0
 djangorestframework==3.11.0
-flower==0.9.4
+flower==1.2.0
 future==0.18.2
 graphene==2.1.8
 graphene-django==2.9.0
